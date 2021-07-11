@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 
-const Signup = ({onSignup}) => {
+const Login = ({onLogin}) => {
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
-    const [passwordConfirmation, setPasswordConfirmation] = useState("")
 
     const handleSubmit = (event) => {
         event.preventDefault() //tries to send a post request
-        fetch("/signup", {
+        fetch("/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -15,11 +14,10 @@ const Signup = ({onSignup}) => {
             body: JSON.stringify({
                 name: name,
                 password: password,
-                password_confirmation: passwordConfirmation
             })
         })
         .then(r => r.json())
-        .then(user => onSignup(user))
+        .then(user => onLogin(user))
     }
 
     return (
@@ -39,16 +37,10 @@ const Signup = ({onSignup}) => {
                 value={password}
                 onChange={(e) => {setPassword(e.target.value)}}
             />
-            <label>Confirm Password</label>
-            <input 
-                type="text"
-                id="/passwordConfirmation"
-                value={passwordConfirmation}
-                onChange={(e) => {setPasswordConfirmation(e.target.value)}}
-            />
+            
             <input type="submit"/>
         </form>
     )
 }
 
-export default Signup;
+export default Login;

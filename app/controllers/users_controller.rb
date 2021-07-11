@@ -2,8 +2,8 @@ class UsersController < ApplicationController
     def create #signup
         user = User.create(user_params)
         if user.valid?
-            session[user_id] = user.id
-            render json: user, status: :created
+            session[:user_id] = user.id
+            render json: user
         else
             render json: { error: user.errors.full_messages }, status: :unprocessable_entity
         end

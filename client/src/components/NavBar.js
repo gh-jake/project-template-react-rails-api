@@ -1,13 +1,16 @@
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom';
 
-const NavBar = () => {
+const NavBar = (props) => {
     
     if(props.loggedIn) {
         return (
             <div>
                 <h1>Hello {props.user.name}</h1>
-                <Link>
+                <br/>
+                <button onClick={props.logOutUser}>Log Out</button>
+                <Link to="/beaches">
+                    <button>Beaches</button>
                 </Link>
             </div>
         )

@@ -4,27 +4,59 @@ import Home from './containers/Home';
 import NavBar from './components/NavBar';
 import React, { useState, useEffect } from 'react';
 import Signup from './components/Signup'
+import Login from './components/Login'
+import Beaches from './containers/Beaches'
+import Beach from './containers/Beach'
 
 function App() {
-  const [loggedIn, setLoggedIn] = setState(false)
+  const [loggedIn, setLoggedIn] = useState(false)
   const [user, setUser] = useState({})
   const history = useHistory()
-  
+
+  useEffect(() => {
+    fetch('/me')
+    .then( res => {
+      if (res.ok) {
+        res.json()
+        .then(u => {
+          setLoggedIn(true)
+          setUser(u) 
+        })
+      }
+    }
+      
+    )
+    
+  }, [])
+
   const signUpUser = (user) => {
     setLoggedIn(true)
     setUser(user)
     history.push('/')
   }
 
+  const logOutUser = () => {
+    fetch('/logout', {
+      method: "DELETE"
+    })
+    .then(() => {
+      console.log("logged out")
+      setLoggedIn(false)
+      setUser({})
+    })
+    history.push('/')
+  }
+
   return (
     <div className="App">
-      <Router>
-        <NavBar/>
+        <NavBar user={user} loggedIn={loggedIn} logOutUser={logOutUser}/>
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='signup' render={routerProps => <Signup {...routerProps} onSignup={signUpUser}  />  } />
+          <Route exact path='/signup' render={routerProps => <Signup {...routerProps} onSignup={signUpUser}  />  } />
+          <Route exact path='/login' render={routerProps => <Login {...routerProps} onLogin={signUpUser}  />  } />
+          <Route exact path='/beaches' user={user} loggedIn={loggedIn} render={routerProps => <Beaches {...routerProps}/>}/>
+          <Route path='/beaches/:id' component={Beach}/>
         </Switch>
-      </Router>
     </div>
   );
 }
