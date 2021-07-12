@@ -1,25 +1,27 @@
 import React, { useState } from 'react'
 
 const BeachEditForm = (props) => {
-    console.log("beachprop", props.beach)
-    
+    const [id, setID] = useState(props.beach.id)
     const [name, setName] = useState(props.beach.name)
     const [town, setTown] = useState(props.beach.town)
     const [dogFriendly, setDogFriendly] = useState(props.beach.dog_friendly)
     const [hasSnackBar, setHasSnackBar] = useState(props.beach.has_snack_bar)
     const [hasRestrooms, setHasRestrooms] = useState(props.beach.has_restrooms)
 
+    // console.log("edit form props", props)
+
     const handleSubmit = (event) => {
         event.preventDefault()
         props.editBeach({
+            id: id,
             name: name,
             town: town,
             dog_friendly: dogFriendly,
             has_snack_bar: hasSnackBar,
             has_restrooms: hasRestrooms
         })
+        props.toggleFlag()
     }
-
 
     return (
         <form onSubmit={handleSubmit}>
@@ -42,8 +44,9 @@ const BeachEditForm = (props) => {
             <input 
                 type="checkbox"
                 id="dog-friendly"
-                value={town}
+                value={dogFriendly}
                 onChange={() => {dogFriendly? setDogFriendly(false) : setDogFriendly(true)}}
+                checked={dogFriendly}
             />
             <label>Snack bar?</label>
             <input 
@@ -51,6 +54,7 @@ const BeachEditForm = (props) => {
                 id="has-snack-bar"
                 value={hasSnackBar}
                 onChange={() => {hasSnackBar? setHasSnackBar(false) : setHasSnackBar(true)}}
+                checked={hasSnackBar}
             />
             <label>Restrooms available?</label>
             <input 
@@ -58,6 +62,7 @@ const BeachEditForm = (props) => {
                 id="has-restrooms"
                 value={hasRestrooms}
                 onChange={() => {hasRestrooms? setHasRestrooms(false) : setHasRestrooms(true)}}
+                checked={hasRestrooms}
             />
             <input type="submit"/>
         </form>

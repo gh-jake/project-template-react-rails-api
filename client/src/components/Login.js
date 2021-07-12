@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 const Login = ({onLogin}) => {
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
+    const [errors, setErrorsList] = useState([])
 
     const handleSubmit = (event) => {
         event.preventDefault() //tries to send a post request
@@ -17,29 +18,43 @@ const Login = ({onLogin}) => {
             })
         })
         .then(r => r.json())
-        .then(user => onLogin(user))
+        .then(user => {
+            if (!user.error) {
+                onLogin(user)
+            }
+            else {
+                setPassword("")
+                // const listOfErrors = user.errors.map(e => <li>{e}</li>)
+                setErrorsList(user.error)
+            }
+        })
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>Name</label>
-            <input 
-                type="text"
-                id="/name"
-                value={name}
-                onChange={(e) => {setName(e.target.value)}}
-            />
+        <div>
             <br/>
-            <label>Password</label>
-            <input 
-                type="password"
-                id="/password"
-                value={password}
-                onChange={(e) => {setPassword(e.target.value)}}
-            />
-            
-            <input type="submit"/>
-        </form>
+            <form onSubmit={handleSubmit}>
+                <label>Name</label>
+                <input 
+                    type="text"
+                    id="/name"
+                    value={name}
+                    onChange={(e) => {setName(e.target.value)}}
+                />
+                <br/>
+                <label>Password</label>
+                <input 
+                    type="password"
+                    id="/password"
+                    value={password}
+                    onChange={(e) => {setPassword(e.target.value)}}
+                />
+                
+                <input type="submit"/>
+            </form>
+            <br/>
+            {errors}
+        </div>
     )
 }
 

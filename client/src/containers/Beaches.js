@@ -15,6 +15,7 @@ const Beaches = () => {
                 setError(data.error)
             }
             else {
+                console.log("data", data)
                 setBeaches(data)
             }
         })
@@ -51,7 +52,7 @@ const Beaches = () => {
     }
 
     const editBeach = (updatedBeach) => {
-        console.log("Edit beach")
+        console.log("updated beach", updatedBeach)
         fetch(`/beaches/${updatedBeach.id}`, {
             method: "PATCH",
             headers: {

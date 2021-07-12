@@ -18,7 +18,7 @@ const BeachForm = ({addBeach}) => {
         })
     }
 
-    console.log("beachform", name, town, dogFriendly, hasSnackBar, hasRestrooms)
+    // console.log("beachform", name, town, dogFriendly, hasSnackBar, hasRestrooms)
 
     return (
         <form onSubmit={handleSubmit}>

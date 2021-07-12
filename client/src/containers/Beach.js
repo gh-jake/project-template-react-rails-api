@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import BeachEditForm from '../components/BeachEditForm'
+// import BeachEditForm from '../components/BeachEditForm'
 // import { useHistory, useParams } from 'react-router'
 
 const Beach = (props) => {

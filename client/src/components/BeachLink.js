@@ -4,15 +4,12 @@ import BeachEditForm from './BeachEditForm'
 
 const BeachLink = (props) => {
     const [formFlag, setFormFlag] = useState(false)
-    // console.log({props.beach.id})
     const toggleFormFlag = () => {
         formFlag ? setFormFlag(false) : setFormFlag(true)
     }
     
-    const handleClick = () => {
-        toggleFormFlag()
 
-    }
+    // console.log(props)
 
     return (
         <div>
@@ -21,9 +18,9 @@ const BeachLink = (props) => {
             </Link>
             <button className="delete-button" onClick={() => props.deleteBeach(props.beach.id)}>X</button>
             {formFlag ? 
-                        <BeachEditForm editBeach={props.editBeach} beach={props.beach}/>
+                        <BeachEditForm editBeach={props.editBeach} beach={props.beach} toggleFlag={toggleFormFlag}/>
                         :
-                        <button onClick={handleClick}>Edit Beach</button>
+                        <button onClick={toggleFormFlag}>Edit Beach</button>
                     }
             <hr/>
         </div>
