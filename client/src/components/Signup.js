@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 
-const Signup = ({onSignup}) => {
+const Signup = ({onSignup, errors}) => {
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
     const [passwordConfirmation, setPasswordConfirmation] = useState("")
+    const [errorsList, setErrorsList] = useState([])
 
     const handleSubmit = (event) => {
         event.preventDefault() //tries to send a post request
@@ -19,8 +20,26 @@ const Signup = ({onSignup}) => {
             })
         })
         .then(r => r.json())
-        .then(user => onSignup(user))
+        .then(user => {
+            if (!user.errors) {
+                onSignup(user)
+            }
+            else {
+                setPassword("")
+                setPasswordConfirmation("")
+                const listOfErrors = user.errors.map(e => <li>{e}</li>)
+                setErrorsList(listOfErrors)
+            }
+            
+        })
     }
+
+    // if (errors.length !== 0 && errorsList.length === 0) {
+    //     setPassword("")
+    //     setPasswordConfirmation("")
+    //     const listOfErrors = errors.map(e => <li>{e}</li>)
+    //     setErrorsList(listOfErrors)
+    // }
 
     return (
         <form onSubmit={handleSubmit}>
@@ -34,14 +53,14 @@ const Signup = ({onSignup}) => {
             <br/>
             <label>Password</label>
             <input 
-                type="text"
+                type="password"
                 id="/password"
                 value={password}
                 onChange={(e) => {setPassword(e.target.value)}}
             />
             <label>Confirm Password</label>
             <input 
-                type="text"
+                type="password"
                 id="/passwordConfirmation"
                 value={passwordConfirmation}
                 onChange={(e) => {setPasswordConfirmation(e.target.value)}}

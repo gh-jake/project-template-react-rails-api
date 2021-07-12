@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 
-const BeachForm = ({addBeach}) => {
-    const [name, setName] = useState("")
-    const [town, setTown] = useState("")
-    const [dogFriendly, setDogFriendly] = useState(false)
-    const [hasSnackBar, setHasSnackBar] = useState(false)
-    const [hasRestrooms, setHasRestrooms] = useState(false)
+const BeachEditForm = (props) => {
+    console.log("beachprop", props.beach)
+    
+    const [name, setName] = useState(props.beach.name)
+    const [town, setTown] = useState(props.beach.town)
+    const [dogFriendly, setDogFriendly] = useState(props.beach.dog_friendly)
+    const [hasSnackBar, setHasSnackBar] = useState(props.beach.has_snack_bar)
+    const [hasRestrooms, setHasRestrooms] = useState(props.beach.has_restrooms)
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        addBeach({
+        props.editBeach({
             name: name,
             town: town,
             dog_friendly: dogFriendly,
@@ -18,7 +20,6 @@ const BeachForm = ({addBeach}) => {
         })
     }
 
-    console.log("beachform", name, town, dogFriendly, hasSnackBar, hasRestrooms)
 
     return (
         <form onSubmit={handleSubmit}>
@@ -63,4 +64,4 @@ const BeachForm = ({addBeach}) => {
     )
 }
 
-export default BeachForm;
+export default BeachEditForm;

@@ -11,6 +11,7 @@ import Beach from './containers/Beach'
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
   const [user, setUser] = useState({})
+  const [errors, setErrors] = useState("")
   const history = useHistory()
 
   useEffect(() => {
@@ -30,9 +31,15 @@ function App() {
   }, [])
 
   const signUpUser = (user) => {
+    if (!user.errors) { 
     setLoggedIn(true)
-    setUser(user)
-    history.push('/')
+      setUser(user)
+      history.push('/')
+    }
+    else {
+      setErrors(user.errors)
+      history.push('/signup')
+    }
   }
 
   const logOutUser = () => {
@@ -52,9 +59,9 @@ function App() {
         <NavBar user={user} loggedIn={loggedIn} logOutUser={logOutUser}/>
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='/signup' render={routerProps => <Signup {...routerProps} onSignup={signUpUser}  />  } />
+          <Route exact path='/signup' render={routerProps => <Signup {...routerProps} errors={errors} onSignup={signUpUser}  />  } />
           <Route exact path='/login' render={routerProps => <Login {...routerProps} onLogin={signUpUser}  />  } />
-          <Route exact path='/beaches' user={user} loggedIn={loggedIn} render={routerProps => <Beaches {...routerProps}/>}/>
+          <Route exact path='/beaches' render={routerProps => <Beaches {...routerProps} user={user} loggedIn={loggedIn}/>}/>
           <Route path='/beaches/:id' component={Beach}/>
         </Switch>
     </div>

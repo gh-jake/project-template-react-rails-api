@@ -7,6 +7,16 @@ class BeachesController < ApplicationController
         render json: beaches
     end
 
+    def show
+        user = User.find_by(id: session[:user_id])
+        beach = user.beaches.find_by(id: params[:id])
+        if beach
+            render json: beach
+        else
+            render json: {error: "Not authorized"}, status: :unauthorized
+        end
+    end
+
     def create
         user = User.find_by(id: session[:user_id])
         beach = user.beaches.create(beach_params)
@@ -15,14 +25,14 @@ class BeachesController < ApplicationController
 
     def update
         user = User.find_by(id: session[:user_id])
-        beach = user.beaches.find(params[:id])
+        beach = user.beaches.find_by(id: params[:id])
         beach.update(beach_params)
         render json: beach
     end
 
     def destroy
         user = User.find_by(id: session[:user_id])
-        beach = user.beaches.find(params[:id])
+        beach = user.beaches.find_by(id: params[:id])
         beach.destroy
         head :no_content
     end

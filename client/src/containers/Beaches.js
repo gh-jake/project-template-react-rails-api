@@ -11,17 +11,11 @@ const Beaches = () => {
         fetch('/beaches')
         .then(res => res.json())
         .then(data => {
-            console.log(data)
-            if (data) {
-                if (data.error) {
-                    setError(data.error)
-                }
-                else {
-                    setBeaches(data)
-                }
-            }  
+            if (data.error) {
+                setError(data.error)
+            }
             else {
-                setError("Not authorized")
+                setBeaches(data)
             }
         })
     }, [])
@@ -36,6 +30,7 @@ const Beaches = () => {
         })
         .then(res => res.json())
         .then(data => {
+            console.log(data)
             setBeaches([...beaches, data])
             // toggleFormFlag()
         })
@@ -56,6 +51,7 @@ const Beaches = () => {
     }
 
     const editBeach = (updatedBeach) => {
+        console.log("Edit beach")
         fetch(`/beaches/${updatedBeach.id}`, {
             method: "PATCH",
             headers: {
