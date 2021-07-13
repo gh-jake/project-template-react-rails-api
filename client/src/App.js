@@ -24,10 +24,7 @@ function App() {
           setUser(u) 
         })
       }
-    }
-      
-    )
-    
+    })
   }, [])
 
   const signUpUser = (user) => {

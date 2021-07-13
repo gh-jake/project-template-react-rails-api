@@ -31,9 +31,7 @@ const Beaches = () => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             setBeaches([...beaches, data])
-            // toggleFormFlag()
         })
         toggleFormFlag()
     }
@@ -52,7 +50,6 @@ const Beaches = () => {
     }
 
     const editBeach = (updatedBeach) => {
-        console.log("updated beach", updatedBeach)
         fetch(`/beaches/${updatedBeach.id}`, {
             method: "PATCH",
             headers: {

@@ -24,7 +24,6 @@ const Login = ({onLogin}) => {
             }
             else {
                 setPassword("")
-                // const listOfErrors = user.errors.map(e => <li>{e}</li>)
                 setErrorsList(user.error)
             }
         })
@@ -49,7 +48,6 @@ const Login = ({onLogin}) => {
                     value={password}
                     onChange={(e) => {setPassword(e.target.value)}}
                 />
-                
                 <input type="submit"/>
             </form>
             <br/>

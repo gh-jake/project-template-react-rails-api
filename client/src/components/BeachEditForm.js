@@ -8,8 +8,6 @@ const BeachEditForm = (props) => {
     const [hasSnackBar, setHasSnackBar] = useState(props.beach.has_snack_bar)
     const [hasRestrooms, setHasRestrooms] = useState(props.beach.has_restrooms)
 
-    // console.log("edit form props", props)
-
     const handleSubmit = (event) => {
         event.preventDefault()
         props.editBeach({

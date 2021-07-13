@@ -4,7 +4,7 @@ const Signup = ({onSignup, errors}) => {
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
     const [passwordConfirmation, setPasswordConfirmation] = useState("")
-    const [error, setError] = useState("")
+    const [errorList, setErrorList] = useState([])
 
     const handleSubmit = (event) => {
         event.preventDefault() //tries to send a post request
@@ -21,28 +21,19 @@ const Signup = ({onSignup, errors}) => {
         })
         .then(r => r.json())
         .then(user => {
-            if (!user.error) {
+            if (!user.errors) {
                 onSignup(user)
             }
             else {
-                console.log(user.error)
-                setName("")
                 setPassword("")
                 setPasswordConfirmation("")
-                setError(user.error)
+                setErrorList(user.errors)
             }
             
         })
     }
 
-    // if (errors.length !== 0 && errorsList.length === 0) {
-    //     setPassword("")
-    //     setPasswordConfirmation("")
-    //     const listOfErrors = errors.map(e => <li>{e}</li>)
-    //     setErrorsList(listOfErrors)
-    // }
-
-    // const listOfErrors = errorsList.map(e => <li>{e}</li>)
+    const listOfErrors = errorList.map(e => <li>{e}</li>)
 
     return (
         <div>
@@ -74,7 +65,7 @@ const Signup = ({onSignup, errors}) => {
                 <br/>
                 <input type="submit"/>
             </form>
-            {error}
+            <ul>{listOfErrors}</ul>
         </div>
     )
 }

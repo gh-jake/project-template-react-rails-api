@@ -8,9 +8,6 @@ const BeachLink = (props) => {
         formFlag ? setFormFlag(false) : setFormFlag(true)
     }
     
-
-    // console.log(props)
-
     return (
         <div>
             <Link to={`/beaches/${props.beach.id}`}>
