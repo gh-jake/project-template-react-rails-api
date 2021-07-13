@@ -38,6 +38,7 @@ const BeachEditForm = (props) => {
                 value={town}
                 onChange={(e) => {setTown(e.target.value)}}
             />
+            <br/>
             <label>Dog friendly?</label>
             <input 
                 type="checkbox"
@@ -46,6 +47,7 @@ const BeachEditForm = (props) => {
                 onChange={() => {dogFriendly? setDogFriendly(false) : setDogFriendly(true)}}
                 checked={dogFriendly}
             />
+            <br/>
             <label>Snack bar?</label>
             <input 
                 type="checkbox"
@@ -54,6 +56,7 @@ const BeachEditForm = (props) => {
                 onChange={() => {hasSnackBar? setHasSnackBar(false) : setHasSnackBar(true)}}
                 checked={hasSnackBar}
             />
+            <br/>
             <label>Restrooms available?</label>
             <input 
                 type="checkbox"
